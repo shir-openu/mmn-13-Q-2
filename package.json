@@ -1,0 +1,16 @@
+{
+  "name": "mmn-13-q-2",
+  "version": "1.0.0",
+  "description": "Digital Friend for ODE Exercise - Complex Eigenvalues",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "dotenv": "^16.6.1"
+  },
+  "devDependencies": {
+    "vercel": "^39.0.0"
+  }
+}

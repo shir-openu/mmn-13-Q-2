@@ -1,0 +1,38 @@
+# Environment variables (contains API keys - never commit!)
+.env
+.env.local
+.env.*.local
+
+# Local documentation (contains sensitive info - never commit!)
+CLAUDE_SUMMARY.txt
+
+# Dependencies
+node_modules/
+
+# Vercel
+.vercel/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local files (not for GitHub)
+*.pdf
+*.jpg
+*.png
+*.txt
+!README.txt
+
+# Microsoft Office files
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt

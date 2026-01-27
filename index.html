@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פתרון מערכת משוואות דיפרנציאליות - ערכים עצמיים מרוכבים</title>
+    <style>
+        :root {
+            --bg: #0b1220;
+            --card-bg: #141d2b;
+            --border: #2d3a4f;
+            --ink: #e5e7eb;
+            --teal: #11a8a0;
+            --magenta: #f472b6;
+            --purple: #a78bfa;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --red: #ef4444;
+            --calc-bg: #0c1526;
+            --blue: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 20px;
+            font-size: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--teal);
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--ink);
+            opacity: 0.7;
+            font-size: 1rem;
+        }
+
+        .problem-statement {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--teal);
+            border-radius: 16px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem-statement h2 {
+            color: var(--teal);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .problem-math {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.3rem;
+            direction: ltr;
+            line-height: 2.2;
+        }
+
+        .equation-system {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .equation-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .phase {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            opacity: 0.4;
+            transition: opacity 0.5s ease;
+        }
+
+        .phase.active {
+            opacity: 1;
+        }
+
+        .phase.step1 { border-color: var(--purple); }
+        .phase.step2 { border-color: var(--orange); }
+        .phase.step3 { border-color: var(--green); }
+        .phase.step4 { border-color: var(--blue); }
+
+        .phase-title {
+            text-align: center;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .phase.step1 .phase-title { color: var(--purple); }
+        .phase.step2 .phase-title { color: var(--orange); }
+        .phase.step3 .phase-title { color: var(--green); }
+        .phase.step4 .phase-title { color: var(--blue); }
+
+        .phase-description {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .guiding-question {
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid var(--purple);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .guiding-question h3 {
+            color: var(--purple);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .guiding-question p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .guiding-question .math {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1rem;
+            direction: ltr;
+            margin: 10px 0;
+        }
+
+        /* Input styles */
+        .input-section {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .input-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            direction: ltr;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .input-row input {
+            width: 100px;
+            height: 38px;
+            text-align: center;
+            font-size: 1rem;
+            font-family: 'Times New Roman', serif;
+            background: var(--calc-bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-row input:focus {
+            border-color: var(--teal);
+        }
+
+        .input-row input.correct {
+            border-color: var(--green);
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .input-row input.incorrect {
+            border-color: var(--red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .input-row input.wide {
+            width: 150px;
+        }
+
+        /* Buttons */
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--calc-bg);
+            color: var(--ink);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            border-color: var(--teal);
+            background: rgba(17, 168, 160, 0.2);
+        }
+
+        .control-btn.primary {
+            border-color: var(--green);
+            background: rgba(34, 197, 94, 0.2);
+        }
+
+        .control-btn.primary:hover {
+            background: rgba(34, 197, 94, 0.4);
+        }
+
+        .control-btn.show-solution {
+            border-color: var(--orange);
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .control-btn.show-solution:hover {
+            background: rgba(245, 158, 11, 0.4);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* DF Button - Digital Friend */
+        .df-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .df-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .df-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .df-icon {
+            font-size: 1.3rem;
+        }
+
+        /* AI Chat Box */
+        .ai-chat-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #1a1f35;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .ai-chat-box.visible {
+            display: block;
+        }
+
+        .ai-chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ai-chat-title {
+            color: #667eea;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-close-btn {
+            background: var(--calc-bg);
+            border: 1px solid var(--border);
+            color: var(--ink);
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .ai-close-btn:hover {
+            border-color: var(--red);
+        }
+
+        .ai-message {
+            margin: 10px 0;
+            padding: 12px;
+            background: var(--calc-bg);
+            border-radius: 8px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .ai-message.user {
+            background: rgba(102, 126, 234, 0.2);
+            border-right: 3px solid #667eea;
+        }
+
+        .ai-message.assistant {
+            background: rgba(34, 197, 94, 0.1);
+            border-right: 3px solid var(--green);
+        }
+
+        .ai-loading {
+            color: var(--ink);
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Solution display */
+        .solution-box {
+            background: var(--calc-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            direction: ltr;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.8;
+            display: none;
+        }
+
+        .solution-box.visible {
+            display: block;
+        }
+
+        .solution-box h4 {
+            color: var(--teal);
+            font-weight: 400;
+            margin-bottom: 10px;
+            text-align: center;
+            direction: rtl;
+        }
+
+        .solution-step {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        .solution-step .label {
+            color: var(--purple);
+            font-size: 1rem;
+            margin-bottom: 5px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .solution-step .math {
+            font-size: 1.05rem;
+            text-align: center;
+        }
+
+        /* Result highlight */
+        .result-highlight {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--green);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .result-highlight h4 {
+            color: var(--green);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .result-highlight .math {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.15rem;
+            direction: ltr;
+        }
+
+        /* Feedback messages */
+        .feedback {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .feedback.visible {
+            display: block;
+        }
+
+        .feedback.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+
+        .feedback.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--red);
+            color: var(--red);
+        }
+
+        /* Highlight colors */
+        .hl-teal { color: var(--teal); font-weight: 500; }
+        .hl-purple { color: var(--purple); font-weight: 500; }
+        .hl-green { color: var(--green); font-weight: 500; }
+        .hl-orange { color: var(--orange); font-weight: 500; }
+        .hl-blue { color: var(--blue); font-weight: 500; }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            border: 2px solid var(--teal);
+            border-radius: 10px;
+            background: rgba(17, 168, 160, 0.2);
+            color: var(--ink);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(17, 168, 160, 0.4);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            color: var(--ink);
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+
+        .progress-step.active {
+            opacity: 1;
+            border-color: var(--teal);
+            background: rgba(17, 168, 160, 0.2);
+        }
+
+        .progress-step.completed {
+            opacity: 1;
+            border-color: var(--green);
+            background: rgba(34, 197, 94, 0.3);
+            color: var(--green);
+        }
+
+        .progress-connector {
+            width: 50px;
+            height: 2px;
+            background: var(--border);
+            align-self: center;
+        }
+
+        .progress-connector.completed {
+            background: var(--green);
+        }
+
+        /* Method explanation box */
+        .method-box {
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid var(--purple);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .method-box h3 {
+            color: var(--purple);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .method-box p {
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @media (max-width: 1000px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        .site-footer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 13px;
+            color: var(--ink);
+            opacity: 0.7;
+        }
+
+        /* Equation highlight */
+        .eq-highlight {
+            background: rgba(17, 168, 160, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>פתרון מערכת משוואות דיפרנציאליות</h1>
+    <div class="subtitle">ערכים עצמיים מרוכבים (Complex Eigenvalues)</div>
+
+    <!-- Problem Statement -->
+    <div class="problem-statement">
+        <h2>השאלה</h2>
+        <div class="problem-math">
+            <div class="equation-system">
+                <div class="equation-row">
+                    <span>x' = Ax, &nbsp; x(0) = [1, 0]<sup>T</sup></span>
+                </div>
+                <div class="equation-row" style="margin-top: 10px;">
+                    <span>A = </span>
+                    <span style="display: inline-flex; align-items: center;">
+                        <span style="border-left: 2px solid white; border-top: 2px solid white; border-bottom: 2px solid white; border-radius: 8px 0 0 8px; padding: 8px 4px; margin-right: 2px;">&nbsp;</span>
+                        <span style="display: inline-flex; flex-direction: column; text-align: center; line-height: 1.6;">
+                            <span>3 &nbsp;&nbsp; −2</span>
+                            <span>4 &nbsp;&nbsp; −1</span>
+                        </span>
+                        <span style="border-right: 2px solid white; border-top: 2px solid white; border-bottom: 2px solid white; border-radius: 0 8px 8px 0; padding: 8px 4px; margin-left: 2px;">&nbsp;</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 15px; font-size: 1rem; opacity: 0.8;">מצאו את פתרון בעיית ההתחלה ללא שימוש במספרים מרוכבים</p>
+    </div>
+
+    <!-- Method explanation -->
+    <div class="method-box">
+        <h3>שיטת הערכים העצמיים</h3>
+        <p>
+            כאשר הערכים העצמיים מרוכבים λ = α ± βi, נמצא וקטור עצמי מרוכב
+            וניקח את החלקים הממשי והמדומה כדי לקבל פתרונות ממשיים.
+        </p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-step active" id="prog1">1</div>
+        <div class="progress-connector" id="conn1"></div>
+        <div class="progress-step" id="prog2">2</div>
+        <div class="progress-connector" id="conn2"></div>
+        <div class="progress-step" id="prog3">3</div>
+        <div class="progress-connector" id="conn3"></div>
+        <div class="progress-step" id="prog4">4</div>
+    </div>
+
+    <div class="container">
+        <!-- Step 1: Find Eigenvalues -->
+        <div class="phase step1 active" id="phase1">
+            <div class="phase-title">שלב 1: מציאת ערכים עצמיים</div>
+
+            <div class="phase-description">
+                נמצא את הערכים העצמיים של המטריצה A על ידי פתרון |λI − A| = 0
+            </div>
+
+            <div class="guiding-question">
+                <h3>שאלה מנחה</h3>
+                <p>חשבו את הפולינום האופייני:</p>
+                <div class="math">
+                    <span class="eq-highlight">|λI − A| = λ² − 2λ + 5 = 0</span>
+                </div>
+                <p style="margin-top: 10px; font-size: 1rem;">רמז: השתמשו בנוסחה הריבועית</p>
+            </div>
+
+            <div class="input-section">
+                <label>מהם הערכים העצמיים? (בצורה λ = α ± βi)</label>
+                <div class="input-row">
+                    <span>λ =</span>
+                    <input type="text" id="lambda-alpha" placeholder="α">
+                    <span>±</span>
+                    <input type="text" id="lambda-beta" placeholder="β">
+                    <span>i</span>
+                </div>
+                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">הזינו מספרים: למשל α=1, β=2</p>
+            </div>
+
+            <div class="feedback" id="feedback1"></div>
+
+            <div class="controls">
+                <button class="control-btn primary" id="check1">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show1">הציגו פתרון</button>
+                <button class="df-btn" id="df1">
+                    <span class="df-icon">🧐</span>
+                    <span>Digital Friend</span>
+                </button>
+            </div>
+
+            <!-- AI Chat Box for Step 1 -->
+            <div class="ai-chat-box" id="aiChat1">
+                <div class="ai-chat-header">
+                    <span class="ai-chat-title">
+                        <span>🧐</span>
+                        <span>Digital Friend - שלב 1</span>
+                    </span>
+                    <button class="ai-close-btn" onclick="closeAIChat(1)">סגירה ×</button>
+                </div>
+                <div class="ai-messages" id="aiMessages1"></div>
+            </div>
+
+            <div class="solution-box" id="solution1">
+                <h4>פתרון שלב 1</h4>
+                <div class="solution-step">
+                    <div class="label">הפולינום האופייני:</div>
+                    <div class="math">|λI − A| = (λ−3)(λ+1) − (−2)(4) = λ² − 2λ + 5</div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">פתרון המשוואה הריבועית:</div>
+                    <div class="math">
+                        λ = (2 ± √(4−20))/2 = (2 ± √(−16))/2 = (2 ± 4i)/2
+                    </div>
+                </div>
+                <div class="result-highlight">
+                    <h4>הערכים העצמיים</h4>
+                    <div class="math">
+                        <span class="hl-purple">λ = 1 ± 2i</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inline navigation -->
+            <div class="inline-nav" style="text-align: center; margin-top: 20px;">
+                <button class="nav-btn" onclick="showStep(2)">← שלב הבא</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Find Eigenvector -->
+        <div class="phase step2" id="phase2">
+            <div class="phase-title">שלב 2: מציאת וקטור עצמי</div>
+
+            <div class="phase-description">
+                נמצא וקטור עצמי v עבור λ = 1 + 2i
+            </div>
+
+            <div class="guiding-question">
+                <h3>שאלה מנחה</h3>
+                <p>פתרו את המערכת (λI − A)v = 0:</p>
+                <div class="math">
+                    <span class="eq-highlight">(−2+2i)v₁ + 2v₂ = 0</span>
+                </div>
+                <p style="margin-top: 10px; font-size: 1rem;">רמז: בחרו v₁ = 1 ומצאו את v₂</p>
+            </div>
+
+            <div class="input-section">
+                <label>מהו הוקטור העצמי v עבור λ = 1+2i?</label>
+                <div class="input-row">
+                    <span>v = [1, </span>
+                    <input type="text" id="v2-real" placeholder="חלק ממשי">
+                    <span>+</span>
+                    <input type="text" id="v2-imag" placeholder="חלק מדומה">
+                    <span>i]<sup>T</sup></span>
+                </div>
+                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">הזינו את הרכיב השני: למשל 1 ו־ -1 עבור 1−i</p>
+            </div>
+
+            <div class="feedback" id="feedback2"></div>
+
+            <div class="controls">
+                <button class="control-btn primary" id="check2">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show2">הציגו פתרון</button>
+                <button class="df-btn" id="df2">
+                    <span class="df-icon">🧐</span>
+                    <span>Digital Friend</span>
+                </button>
+            </div>
+
+            <!-- AI Chat Box for Step 2 -->
+            <div class="ai-chat-box" id="aiChat2">
+                <div class="ai-chat-header">
+                    <span class="ai-chat-title">
+                        <span>🧐</span>
+                        <span>Digital Friend - שלב 2</span>
+                    </span>
+                    <button class="ai-close-btn" onclick="closeAIChat(2)">סגירה ×</button>
+                </div>
+                <div class="ai-messages" id="aiMessages2"></div>
+            </div>
+
+            <div class="solution-box" id="solution2">
+                <h4>פתרון שלב 2</h4>
+                <div class="solution-step">
+                    <div class="label">המטריצה (λI − A) עבור λ = 1+2i:</div>
+                    <div class="math">
+                        [(−2+2i), 2; −4, (2+2i)]
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">מהמשוואה הראשונה:</div>
+                    <div class="math">
+                        (−2+2i)v₁ + 2v₂ = 0 → v₂ = (1−i)v₁
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">בחירת v₁ = 1:</div>
+                    <div class="math">
+                        v₂ = 1 − i
+                    </div>
+                </div>
+                <div class="result-highlight">
+                    <h4>הוקטור העצמי</h4>
+                    <div class="math">
+                        <span class="hl-orange">v = [1, 1−i]<sup>T</sup></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inline navigation -->
+            <div class="inline-nav" style="text-align: center; margin-top: 20px;">
+                <button class="nav-btn" onclick="showStep(1)" style="margin-left: 10px;">שלב קודם →</button>
+                <button class="nav-btn" onclick="showStep(3)">← שלב הבא</button>
+            </div>
+        </div>
+
+        <!-- Step 3: General Solution -->
+        <div class="phase step3" id="phase3">
+            <div class="phase-title">שלב 3: הפתרון הכללי</div>
+
+            <div class="phase-description">
+                נפרק את הפתרון המרוכב לחלקים ממשי ומדומה
+            </div>
+
+            <div class="guiding-question">
+                <h3>שאלה מנחה</h3>
+                <p>הפתרון הכללי הוא:</p>
+                <div class="math">
+                    <span class="eq-highlight">x(t) = C₁e<sup>t</sup>[cos2t; cos2t+sin2t] + C₂e<sup>t</sup>[sin2t; sin2t−cos2t]</span>
+                </div>
+                <p style="margin-top: 10px; font-size: 1rem;">זכרו: e<sup>αt</sup>(cosβt + i·sinβt)</p>
+            </div>
+
+            <div class="input-section">
+                <label>מה המקדם של sin2t ברכיב y(t) בפתרון השני?</label>
+                <div class="input-row">
+                    <span>y₂(t) = e<sup>t</sup>(</span>
+                    <input type="text" id="y2-sin-coef" placeholder="?">
+                    <span>·sin2t −</span>
+                    <input type="text" id="y2-cos-coef" placeholder="?">
+                    <span>·cos2t)</span>
+                </div>
+                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">הזינו מספרים: 1 או -1</p>
+            </div>
+
+            <div class="feedback" id="feedback3"></div>
+
+            <div class="controls">
+                <button class="control-btn primary" id="check3">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show3">הציגו פתרון</button>
+                <button class="df-btn" id="df3">
+                    <span class="df-icon">🧐</span>
+                    <span>Digital Friend</span>
+                </button>
+            </div>
+
+            <!-- AI Chat Box for Step 3 -->
+            <div class="ai-chat-box" id="aiChat3">
+                <div class="ai-chat-header">
+                    <span class="ai-chat-title">
+                        <span>🧐</span>
+                        <span>Digital Friend - שלב 3</span>
+                    </span>
+                    <button class="ai-close-btn" onclick="closeAIChat(3)">סגירה ×</button>
+                </div>
+                <div class="ai-messages" id="aiMessages3"></div>
+            </div>
+
+            <div class="solution-box" id="solution3">
+                <h4>פתרון שלב 3</h4>
+                <div class="solution-step">
+                    <div class="label">הפתרון המרוכב:</div>
+                    <div class="math">
+                        e<sup>(1+2i)t</sup>v = e<sup>t</sup>e<sup>2it</sup>[1; 1−i]
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">פירוק באמצעות אוילר:</div>
+                    <div class="math">
+                        = e<sup>t</sup>(cos2t + i·sin2t)[1; 1−i]
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">החלק הממשי (פתרון ראשון):</div>
+                    <div class="math">
+                        x₁(t) = e<sup>t</sup>[cos2t; cos2t + sin2t]
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">החלק המדומה (פתרון שני):</div>
+                    <div class="math">
+                        x₂(t) = e<sup>t</sup>[sin2t; sin2t − cos2t]
+                    </div>
+                </div>
+                <div class="result-highlight">
+                    <h4>הפתרון הכללי</h4>
+                    <div class="math">
+                        <span class="hl-green">x(t) = C₁e<sup>t</sup>[cos2t; cos2t+sin2t] + C₂e<sup>t</sup>[sin2t; sin2t−cos2t]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inline navigation -->
+            <div class="inline-nav" style="text-align: center; margin-top: 20px;">
+                <button class="nav-btn" onclick="showStep(2)" style="margin-left: 10px;">שלב קודם →</button>
+                <button class="nav-btn" onclick="showStep(4)">← שלב הבא</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Initial Conditions -->
+        <div class="phase step4" id="phase4">
+            <div class="phase-title">שלב 4: תנאי התחלה</div>
+
+            <div class="phase-description">
+                נציב את תנאי ההתחלה x(0) = [1, 0]<sup>T</sup> כדי למצוא C₁ ו-C₂
+            </div>
+
+            <div class="guiding-question">
+                <h3>שאלה מנחה</h3>
+                <p>הציבו t = 0 בפתרון הכללי:</p>
+                <div class="math">
+                    <span class="eq-highlight">[1; 0] = C₁[1; 1] + C₂[0; −1]</span>
+                </div>
+                <p style="margin-top: 10px; font-size: 1rem;">רמז: פתרו מערכת של 2 משוואות</p>
+            </div>
+
+            <div class="input-section">
+                <label>מהם ערכי הקבועים?</label>
+                <div class="input-row">
+                    <span>C₁ =</span>
+                    <input type="text" id="c1-val" placeholder="?">
+                    <span style="margin-left: 20px;">C₂ =</span>
+                    <input type="text" id="c2-val" placeholder="?">
+                </div>
+            </div>
+
+            <div class="feedback" id="feedback4"></div>
+
+            <div class="controls">
+                <button class="control-btn primary" id="check4">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show4">הציגו פתרון</button>
+                <button class="df-btn" id="df4">
+                    <span class="df-icon">🧐</span>
+                    <span>Digital Friend</span>
+                </button>
+            </div>
+
+            <!-- AI Chat Box for Step 4 -->
+            <div class="ai-chat-box" id="aiChat4">
+                <div class="ai-chat-header">
+                    <span class="ai-chat-title">
+                        <span>🧐</span>
+                        <span>Digital Friend - שלב 4</span>
+                    </span>
+                    <button class="ai-close-btn" onclick="closeAIChat(4)">סגירה ×</button>
+                </div>
+                <div class="ai-messages" id="aiMessages4"></div>
+            </div>
+
+            <div class="solution-box" id="solution4">
+                <h4>פתרון שלב 4</h4>
+                <div class="solution-step">
+                    <div class="label">הצבת t = 0:</div>
+                    <div class="math">
+                        [1; 0] = C₁[cos0; cos0+sin0] + C₂[sin0; sin0−cos0]
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">פישוט:</div>
+                    <div class="math">
+                        [1; 0] = C₁[1; 1] + C₂[0; −1] = [C₁; C₁ − C₂]
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">מהמשוואה הראשונה: C₁ = 1</div>
+                    <div class="math">
+                        מהמשוואה השנייה: C₁ − C₂ = 0 → C₂ = 1
+                    </div>
+                </div>
+                <div class="result-highlight">
+                    <h4>הקבועים</h4>
+                    <div class="math">
+                        <span class="hl-blue">C₁ = 1, C₂ = 1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Answer -->
+            <div class="solution-box" id="final-answer" style="display: none;">
+                <h4>פתרון בעיית ההתחלה</h4>
+                <div class="result-highlight" style="background: rgba(17, 168, 160, 0.15); border-color: var(--teal);">
+                    <div class="math" style="font-size: 1.1rem; line-height: 2;">
+                        x(t) = e<sup>t</sup>(cos2t + sin2t)<br>
+                        y(t) = 2e<sup>t</sup>sin2t
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inline navigation -->
+            <div class="inline-nav" style="text-align: center; margin-top: 20px;">
+                <button class="nav-btn" onclick="showStep(3)">שלב קודם →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Endpoint - Vercel serverless function (will be updated after deployment)
+        const API_ENDPOINT = 'https://mmn-13-q-2.vercel.app/api/ai-hint';
+
+        // Conversation history per step
+        const conversationHistory = {
+            1: [],
+            2: [],
+            3: [],
+            4: []
+        };
+
+        // Problem data for each step
+        const problemData = {
+            1: {
+                correctAnswer: "λ = 1 ± 2i (α=1, β=2)",
+                fullSolution: "λ = 1 ± 2i\n\nשלבי הפתרון:\n1. הפולינום האופייני: |λI - A| = (λ-3)(λ+1) - (-2)(4) = λ² - 2λ + 5\n2. נוסחה ריבועית: λ = (2 ± √(4-20))/2 = (2 ± √(-16))/2\n3. λ = (2 ± 4i)/2 = 1 ± 2i"
+            },
+            2: {
+                correctAnswer: "v = [1, 1-i]^T (v₂ has real part 1, imaginary part -1)",
+                fullSolution: "v = [1, 1-i]^T\n\nשלבי הפתרון:\n1. עבור λ = 1+2i, נפתור (λI - A)v = 0\n2. המשוואה: (-2+2i)v₁ + 2v₂ = 0\n3. v₂ = (2-2i)v₁/2 = (1-i)v₁\n4. בחירת v₁ = 1: v = [1, 1-i]^T"
+            },
+            3: {
+                correctAnswer: "y₂(t) = e^t(sin2t - cos2t) (coefficients: 1 for sin2t, 1 for cos2t)",
+                fullSolution: "הפתרון הכללי:\nx(t) = C₁e^t[cos2t; cos2t+sin2t] + C₂e^t[sin2t; sin2t-cos2t]\n\nהסבר:\n1. e^{(1+2i)t}v = e^t(cos2t + i·sin2t)[1; 1-i]\n2. החלק הממשי: e^t[cos2t; cos2t+sin2t]\n3. החלק המדומה: e^t[sin2t; sin2t-cos2t]"
+            },
+            4: {
+                correctAnswer: "C₁ = 1, C₂ = 1",
+                fullSolution: "C₁ = 1, C₂ = 1\n\nשלבי הפתרון:\n1. הצבת x(0) = [1, 0]^T\n2. [1; 0] = C₁[1; 1] + C₂[0; -1]\n3. מהרכיב הראשון: C₁ = 1\n4. מהרכיב השני: C₁ - C₂ = 0 → C₂ = 1\n\nהפתרון הסופי:\nx(t) = e^t(cos2t + sin2t)\ny(t) = 2e^t·sin2t"
+            }
+        };
+
+        // State
+        let currentStep = 1;
+        const totalSteps = 4;
+        let stepCompleted = [false, false, false, false];
+
+        // DOM elements
+        const phases = document.querySelectorAll('.phase');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const connectors = document.querySelectorAll('.progress-connector');
+
+        // Update UI based on current step
+        function updateUI() {
+            phases.forEach((phase, index) => {
+                if (index + 1 === currentStep) {
+                    phase.classList.add('active');
+                } else {
+                    phase.classList.remove('active');
+                }
+            });
+
+            progressSteps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                } else if (stepCompleted[index]) {
+                    step.classList.add('completed');
+                }
+            });
+
+            connectors.forEach((conn, index) => {
+                if (stepCompleted[index]) {
+                    conn.classList.add('completed');
+                } else {
+                    conn.classList.remove('completed');
+                }
+            });
+
+            // Enable/disable buttons based on previous step completion
+            // All stages are accessible - no restrictions based on previous step completion
+        }
+
+        // Show feedback
+        function showFeedback(element, message, isSuccess) {
+            element.textContent = message;
+            element.className = 'feedback visible ' + (isSuccess ? 'success' : 'error');
+        }
+
+        // Normalize answer for comparison
+        function normalize(str) {
+            if (!str) return '';
+            return str.toLowerCase()
+                .replace(/\s+/g, '')
+                .replace(/\*/g, '')
+                .replace(/\^/g, '')
+                .replace(/²/g, '2');
+        }
+
+        // Get user input for current step
+        function getUserInput(step) {
+            if (step === 1) {
+                const alpha = document.getElementById('lambda-alpha').value;
+                const beta = document.getElementById('lambda-beta').value;
+                return `λ = ${alpha} ± ${beta}i`;
+            } else if (step === 2) {
+                const v2real = document.getElementById('v2-real').value;
+                const v2imag = document.getElementById('v2-imag').value;
+                return `v = [1, ${v2real} + ${v2imag}i]^T`;
+            } else if (step === 3) {
+                const sinCoef = document.getElementById('y2-sin-coef').value;
+                const cosCoef = document.getElementById('y2-cos-coef').value;
+                return `y₂(t) = e^t(${sinCoef}·sin2t - ${cosCoef}·cos2t)`;
+            } else {
+                const c1 = document.getElementById('c1-val').value;
+                const c2 = document.getElementById('c2-val').value;
+                return `C₁ = ${c1}, C₂ = ${c2}`;
+            }
+        }
+
+        // AI Chat functions
+        async function askDigitalFriend(step) {
+            const userInput = getUserInput(step);
+            const chatBox = document.getElementById(`aiChat${step}`);
+            const messagesDiv = document.getElementById(`aiMessages${step}`);
+
+            // Show chat box
+            chatBox.classList.add('visible');
+
+            // Show loading
+            messagesDiv.innerHTML += `
+                <div class="ai-message ai-loading">
+                    <div class="spinner"></div>
+                    <span>מעבד את התשובה...</span>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userInput: userInput,
+                        currentStep: step,
+                        problemData: problemData[step],
+                        conversationHistory: conversationHistory[step]
+                    })
+                });
+
+                const data = await response.json();
+
+                // Remove loading
+                const loadingEl = messagesDiv.querySelector('.ai-loading');
+                if (loadingEl) loadingEl.remove();
+
+                if (data.error) {
+                    messagesDiv.innerHTML += `
+                        <div class="ai-message" style="color: var(--red);">
+                            שגיאה: ${data.error}
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Save to history
+                conversationHistory[step].push({
+                    user: userInput,
+                    ai: data.hint
+                });
+
+                // Display conversation
+                displayConversation(step);
+
+            } catch (error) {
+                const loadingEl = messagesDiv.querySelector('.ai-loading');
+                if (loadingEl) loadingEl.remove();
+
+                messagesDiv.innerHTML += `
+                    <div class="ai-message" style="color: var(--red);">
+                        לא ניתן להתחבר לשרת. ודאו שהשרת המקומי פועל.
+                    </div>
+                `;
+                console.error('API Error:', error);
+            }
+        }
+
+        function displayConversation(step) {
+            const messagesDiv = document.getElementById(`aiMessages${step}`);
+            let html = '';
+
+            conversationHistory[step].forEach((turn, i) => {
+                html += `
+                    <div class="ai-message user">
+                        <strong>ניסיון #${i + 1}:</strong> ${turn.user}
+                    </div>
+                    <div class="ai-message assistant">
+                        ${turn.ai}
+                    </div>
+                `;
+            });
+
+            messagesDiv.innerHTML = html;
+        }
+
+        function closeAIChat(step) {
+            document.getElementById(`aiChat${step}`).classList.remove('visible');
+        }
+
+        // Check Step 1 (eigenvalues)
+        document.getElementById('check1').addEventListener('click', () => {
+            const alpha = normalize(document.getElementById('lambda-alpha').value);
+            const beta = normalize(document.getElementById('lambda-beta').value);
+
+            const alphaCorrect = alpha === '1';
+            const betaCorrect = beta === '2';
+
+            document.getElementById('lambda-alpha').className = alphaCorrect ? 'correct' : 'incorrect';
+            document.getElementById('lambda-beta').className = betaCorrect ? 'correct' : 'incorrect';
+
+            if (alphaCorrect && betaCorrect) {
+                showFeedback(document.getElementById('feedback1'), '✓ מצוין! הערכים העצמיים נכונים', true);
+                stepCompleted[0] = true;
+                updateUI();
+            } else {
+                showFeedback(document.getElementById('feedback1'), '✗ בדקו שוב את הפולינום האופייני', false);
+            }
+        });
+
+        // Show/Hide Step 1 solution (toggle)
+        document.getElementById('show1').addEventListener('click', () => {
+            document.getElementById('solution1').classList.toggle('visible');
+            if (document.getElementById('solution1').classList.contains('visible')) {
+                stepCompleted[0] = true;
+                updateUI();
+            }
+        });
+
+        // DF Button Step 1
+        document.getElementById('df1').addEventListener('click', () => askDigitalFriend(1));
+
+        // Check Step 2 (eigenvector)
+        document.getElementById('check2').addEventListener('click', () => {
+            const v2real = normalize(document.getElementById('v2-real').value);
+            const v2imag = normalize(document.getElementById('v2-imag').value);
+
+            const realCorrect = v2real === '1';
+            const imagCorrect = v2imag === '-1';
+
+            document.getElementById('v2-real').className = realCorrect ? 'correct' : 'incorrect';
+            document.getElementById('v2-imag').className = imagCorrect ? 'correct' : 'incorrect';
+
+            if (realCorrect && imagCorrect) {
+                showFeedback(document.getElementById('feedback2'), '✓ מצוין! הוקטור העצמי נכון', true);
+                stepCompleted[1] = true;
+                updateUI();
+            } else {
+                showFeedback(document.getElementById('feedback2'), '✗ בדקו שוב את המשוואה (λI-A)v=0', false);
+            }
+        });
+
+        // Show/Hide Step 2 solution (toggle)
+        document.getElementById('show2').addEventListener('click', () => {
+            document.getElementById('solution2').classList.toggle('visible');
+            if (document.getElementById('solution2').classList.contains('visible')) {
+                stepCompleted[1] = true;
+                updateUI();
+            }
+        });
+
+        // DF Button Step 2
+        document.getElementById('df2').addEventListener('click', () => askDigitalFriend(2));
+
+        // Check Step 3 (general solution coefficients)
+        document.getElementById('check3').addEventListener('click', () => {
+            const sinCoef = normalize(document.getElementById('y2-sin-coef').value);
+            const cosCoef = normalize(document.getElementById('y2-cos-coef').value);
+
+            const sinCorrect = sinCoef === '1';
+            const cosCorrect = cosCoef === '1';
+
+            document.getElementById('y2-sin-coef').className = sinCorrect ? 'correct' : 'incorrect';
+            document.getElementById('y2-cos-coef').className = cosCorrect ? 'correct' : 'incorrect';
+
+            if (sinCorrect && cosCorrect) {
+                showFeedback(document.getElementById('feedback3'), '✓ מצוין! הפתרון הכללי נכון', true);
+                stepCompleted[2] = true;
+                updateUI();
+            } else {
+                showFeedback(document.getElementById('feedback3'), '✗ בדקו שוב את הפירוק לחלק ממשי ומדומה', false);
+            }
+        });
+
+        // Show/Hide Step 3 solution (toggle)
+        document.getElementById('show3').addEventListener('click', () => {
+            document.getElementById('solution3').classList.toggle('visible');
+            if (document.getElementById('solution3').classList.contains('visible')) {
+                stepCompleted[2] = true;
+                updateUI();
+            }
+        });
+
+        // DF Button Step 3
+        document.getElementById('df3').addEventListener('click', () => askDigitalFriend(3));
+
+        // Check Step 4 (initial conditions)
+        document.getElementById('check4').addEventListener('click', () => {
+            const c1 = normalize(document.getElementById('c1-val').value);
+            const c2 = normalize(document.getElementById('c2-val').value);
+
+            const c1Correct = c1 === '1';
+            const c2Correct = c2 === '1';
+
+            document.getElementById('c1-val').className = c1Correct ? 'correct' : 'incorrect';
+            document.getElementById('c2-val').className = c2Correct ? 'correct' : 'incorrect';
+
+            if (c1Correct && c2Correct) {
+                showFeedback(document.getElementById('feedback4'), '✓ מעולה! פתרתם את בעיית ההתחלה בהצלחה!', true);
+                stepCompleted[3] = true;
+                document.getElementById('final-answer').style.display = 'block';
+                updateUI();
+            } else {
+                showFeedback(document.getElementById('feedback4'), '✗ בדקו שוב את הצבת תנאי ההתחלה', false);
+            }
+        });
+
+        // Show/Hide Step 4 solution (toggle)
+        document.getElementById('show4').addEventListener('click', () => {
+            document.getElementById('solution4').classList.toggle('visible');
+            const isVisible = document.getElementById('solution4').classList.contains('visible');
+            document.getElementById('final-answer').style.display = isVisible ? 'block' : 'none';
+            if (isVisible) {
+                stepCompleted[3] = true;
+                updateUI();
+            }
+        });
+
+        // DF Button Step 4
+        document.getElementById('df4').addEventListener('click', () => askDigitalFriend(4));
+
+        // Function for inline navigation buttons
+        function showStep(step) {
+            if (step >= 1 && step <= totalSteps) {
+                currentStep = step;
+                updateUI();
+            }
+        }
+
+        // Initialize
+        updateUI();
+    </script>
+
+<footer class="site-footer" dir="ltr">
+  &copy; The Open University of Israel | Developed by Shir Sivroni
+</footer>
+</body>
+</html>
