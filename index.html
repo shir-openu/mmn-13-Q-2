@@ -486,6 +486,68 @@
         .hl-orange { color: var(--orange); font-weight: 500; }
         .hl-blue { color: var(--blue); font-weight: 500; }
 
+        /* Solution Modal Popup */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 2px solid var(--teal);
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            direction: ltr;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.8;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: var(--purple);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #9333ea;
+        }
+
+        .modal-title {
+            color: var(--teal);
+            text-align: center;
+            direction: rtl;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
         /* Navigation buttons */
         .nav-buttons {
             display: flex;
@@ -888,19 +950,36 @@
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">פירוק באמצעות אוילר:</div>
+                    <div class="label">פירוק באמצעות נוסחת אוילר e<sup>iθ</sup> = cosθ + i·sinθ:</div>
                     <div class="math">
                         = e<sup>t</sup>(cos2t + i·sin2t)[1; 1−i]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">החלק הממשי (פתרון ראשון):</div>
+                    <div class="label">פתיחת המכפלה - נכפיל כל רכיב בוקטור:</div>
+                    <div class="math" style="text-align: left; padding-left: 20px;">
+                        רכיב ראשון: (cos2t + i·sin2t)·1 = cos2t + i·sin2t<br><br>
+                        רכיב שני: (cos2t + i·sin2t)·(1−i)<br>
+                        &nbsp;&nbsp;= cos2t·1 + cos2t·(−i) + i·sin2t·1 + i·sin2t·(−i)<br>
+                        &nbsp;&nbsp;= cos2t − i·cos2t + i·sin2t − i²·sin2t<br>
+                        &nbsp;&nbsp;= cos2t − i·cos2t + i·sin2t + sin2t &nbsp;&nbsp;(כי i² = −1)<br>
+                        &nbsp;&nbsp;= (cos2t + sin2t) + i·(sin2t − cos2t)
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">הפתרון המרוכב המלא:</div>
+                    <div class="math">
+                        e<sup>t</sup>[cos2t + i·sin2t; (cos2t+sin2t) + i·(sin2t−cos2t)]
+                    </div>
+                </div>
+                <div class="solution-step">
+                    <div class="label">החלק הממשי (פתרון ראשון x₁):</div>
                     <div class="math">
                         x₁(t) = e<sup>t</sup>[cos2t; cos2t + sin2t]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">החלק המדומה (פתרון שני):</div>
+                    <div class="label">החלק המדומה (פתרון שני x₂):</div>
                     <div class="math">
                         x₂(t) = e<sup>t</sup>[sin2t; sin2t − cos2t]
                     </div>
@@ -1214,6 +1293,39 @@
             document.getElementById(`aiChat${step}`).classList.remove('visible');
         }
 
+        // Modal functions for solution popup
+        function openSolutionModal(step) {
+            const titles = {
+                1: 'פתרון שלב 1 - ערכים עצמיים',
+                2: 'פתרון שלב 2 - וקטור עצמי',
+                3: 'פתרון שלב 3 - הפתרון הכללי',
+                4: 'פתרון שלב 4 - תנאי התחלה'
+            };
+
+            const solutionContent = document.getElementById(`solution${step}`).innerHTML;
+            document.getElementById('modalTitle').textContent = titles[step];
+            document.getElementById('modalBody').innerHTML = solutionContent;
+            document.getElementById('solutionModal').classList.add('visible');
+
+            // Mark step as completed
+            stepCompleted[step - 1] = true;
+            if (step === 4) {
+                document.getElementById('final-answer').style.display = 'block';
+            }
+            updateUI();
+        }
+
+        function closeSolutionModal() {
+            document.getElementById('solutionModal').classList.remove('visible');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('solutionModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('solutionModal')) {
+                closeSolutionModal();
+            }
+        });
+
         // Check Step 1 (eigenvalues)
         document.getElementById('check1').addEventListener('click', () => {
             const alpha = normalize(document.getElementById('lambda-alpha').value);
@@ -1234,14 +1346,8 @@
             }
         });
 
-        // Show/Hide Step 1 solution (toggle)
-        document.getElementById('show1').addEventListener('click', () => {
-            document.getElementById('solution1').classList.toggle('visible');
-            if (document.getElementById('solution1').classList.contains('visible')) {
-                stepCompleted[0] = true;
-                updateUI();
-            }
-        });
+        // Show Step 1 solution (modal)
+        document.getElementById('show1').addEventListener('click', () => openSolutionModal(1));
 
         // DF Button Step 1
         document.getElementById('df1').addEventListener('click', () => askDigitalFriend(1));
@@ -1266,14 +1372,8 @@
             }
         });
 
-        // Show/Hide Step 2 solution (toggle)
-        document.getElementById('show2').addEventListener('click', () => {
-            document.getElementById('solution2').classList.toggle('visible');
-            if (document.getElementById('solution2').classList.contains('visible')) {
-                stepCompleted[1] = true;
-                updateUI();
-            }
-        });
+        // Show Step 2 solution (modal)
+        document.getElementById('show2').addEventListener('click', () => openSolutionModal(2));
 
         // DF Button Step 2
         document.getElementById('df2').addEventListener('click', () => askDigitalFriend(2));
@@ -1298,14 +1398,8 @@
             }
         });
 
-        // Show/Hide Step 3 solution (toggle)
-        document.getElementById('show3').addEventListener('click', () => {
-            document.getElementById('solution3').classList.toggle('visible');
-            if (document.getElementById('solution3').classList.contains('visible')) {
-                stepCompleted[2] = true;
-                updateUI();
-            }
-        });
+        // Show Step 3 solution (modal)
+        document.getElementById('show3').addEventListener('click', () => openSolutionModal(3));
 
         // DF Button Step 3
         document.getElementById('df3').addEventListener('click', () => askDigitalFriend(3));
@@ -1331,16 +1425,8 @@
             }
         });
 
-        // Show/Hide Step 4 solution (toggle)
-        document.getElementById('show4').addEventListener('click', () => {
-            document.getElementById('solution4').classList.toggle('visible');
-            const isVisible = document.getElementById('solution4').classList.contains('visible');
-            document.getElementById('final-answer').style.display = isVisible ? 'block' : 'none';
-            if (isVisible) {
-                stepCompleted[3] = true;
-                updateUI();
-            }
-        });
+        // Show Step 4 solution (modal)
+        document.getElementById('show4').addEventListener('click', () => openSolutionModal(4));
 
         // DF Button Step 4
         document.getElementById('df4').addEventListener('click', () => askDigitalFriend(4));
@@ -1356,6 +1442,15 @@
         // Initialize
         updateUI();
     </script>
+
+<!-- Solution Modal Popup -->
+<div class="modal-overlay" id="solutionModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeSolutionModal()">×</button>
+        <h3 class="modal-title" id="modalTitle">פתרון</h3>
+        <div id="modalBody"></div>
+    </div>
+</div>
 
 <footer class="site-footer" dir="ltr">
   &copy; The Open University of Israel | Developed by Shir Sivroni
