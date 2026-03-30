@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solving a System of Differential Equations - Complex Eigenvalues</title>
+    <title>פתרון מערכת משוואות דיפרנציאליות - ערכים עצמיים מרוכבים</title>
     <style>
         :root {
             --bg: #0b1220;
@@ -358,12 +358,12 @@
 
         .ai-message.user {
             background: rgba(102, 126, 234, 0.2);
-            border-left: 3px solid #667eea;
+            border-right: 3px solid #667eea;
         }
 
         .ai-message.assistant {
             background: rgba(34, 197, 94, 0.1);
-            border-left: 3px solid var(--green);
+            border-right: 3px solid var(--green);
         }
 
         .ai-loading {
@@ -409,7 +409,7 @@
             font-weight: 400;
             margin-bottom: 10px;
             text-align: center;
-            direction: ltr;
+            direction: rtl;
         }
 
         .solution-step {
@@ -423,8 +423,8 @@
             color: var(--purple);
             font-size: 1rem;
             margin-bottom: 5px;
-            direction: ltr;
-            text-align: left;
+            direction: rtl;
+            text-align: right;
         }
 
         .solution-step .math {
@@ -637,7 +637,7 @@
             max-height: 80vh;
             overflow-y: auto;
             position: relative;
-            direction: ltr;
+            direction: rtl;
         }
         .popup h2 {
             margin: 0 0 16px 0;
@@ -664,12 +664,12 @@
     </style>
 </head>
 <body>
-    <h1>Solving a System of Differential Equations</h1>
-    <div class="subtitle">Complex Eigenvalues</div>
+    <h1>פתרון מערכת משוואות דיפרנציאליות</h1>
+    <div class="subtitle">ערכים עצמיים מרוכבים (Complex Eigenvalues)</div>
 
     <!-- Problem Statement -->
     <div class="problem-statement">
-        <h2>The Problem</h2>
+        <h2>השאלה</h2>
         <div class="problem-math">
             <div class="equation-system">
                 <div class="equation-row">
@@ -688,15 +688,15 @@
                 </div>
             </div>
         </div>
-        <p style="margin-top: 15px; font-size: 1rem; opacity: 0.8;">Find the solution to the initial value problem without using complex numbers</p>
+        <p style="margin-top: 15px; font-size: 1rem; opacity: 0.8;">מצאו את פתרון בעיית ההתחלה ללא שימוש במספרים מרוכבים</p>
     </div>
 
     <!-- Method explanation -->
     <div class="method-box">
-        <h3>The Eigenvalue Method</h3>
+        <h3>שיטת הערכים העצמיים</h3>
         <p>
-            When the eigenvalues are complex λ = α ± βi, we find a complex eigenvector
-            and take its real and imaginary parts to obtain real solutions.
+            כאשר הערכים העצמיים מרוכבים λ = α ± βi, נמצא וקטור עצמי מרוכב
+            וניקח את החלקים הממשי והמדומה כדי לקבל פתרונות ממשיים.
         </p>
     </div>
 
@@ -714,23 +714,23 @@
     <div class="container">
         <!-- Step 1: Find Eigenvalues -->
         <div class="phase step1 active" id="phase1">
-            <div class="phase-title">Step 1: Finding Eigenvalues</div>
+            <div class="phase-title">שלב 1: מציאת ערכים עצמיים</div>
 
             <div class="phase-description">
-                We find the eigenvalues of matrix A by solving |λI − A| = 0
+                נמצא את הערכים העצמיים של המטריצה A על ידי פתרון |λI − A| = 0
             </div>
 
             <div class="guiding-question">
-                <h3>Guiding Question</h3>
-                <p>Compute the characteristic polynomial:</p>
+                <h3>שאלה מנחה</h3>
+                <p>חשבו את הפולינום האופייני:</p>
                 <div class="math">
                     <span class="eq-highlight">|λI − A| = λ² − 2λ + 5 = 0</span>
                 </div>
-                <p style="margin-top: 10px; font-size: 1rem;">Hint: Use the quadratic formula</p>
+                <p style="margin-top: 10px; font-size: 1rem;">רמז: השתמשו בנוסחה הריבועית</p>
             </div>
 
             <div class="input-section">
-                <label>What are the eigenvalues? (in the form λ = α ± βi)</label>
+                <label>מהם הערכים העצמיים? (בצורה λ = α ± βi)</label>
                 <div class="input-row">
                     <span>λ =</span>
                     <input type="text" id="lambda-alpha" placeholder="α">
@@ -738,14 +738,14 @@
                     <input type="text" id="lambda-beta" placeholder="β">
                     <span>i</span>
                 </div>
-                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">Enter numbers: e.g. α=1, β=2</p>
+                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">הזינו מספרים: למשל α=1, β=2</p>
             </div>
 
             <div class="feedback" id="feedback1"></div>
 
             <div class="controls">
-                <button class="control-btn primary" id="check1">Check Answer</button>
-                <button class="control-btn show-solution" id="show1">Show Solution</button>
+                <button class="control-btn primary" id="check1">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show1">הציגו פתרון</button>
                 <button class="df-btn" id="df1">
                     <span class="df-icon">🧐</span>
                     <span>Digital Friend</span>
@@ -757,27 +757,27 @@
                 <div class="ai-chat-header">
                     <span class="ai-chat-title">
                         <span>🧐</span>
-                        <span>Digital Friend - Step 1</span>
+                        <span>Digital Friend - שלב 1</span>
                     </span>
-                    <button class="ai-close-btn" onclick="closeAIChat(1)">Close ×</button>
+                    <button class="ai-close-btn" onclick="closeAIChat(1)">סגירה ×</button>
                 </div>
                 <div class="ai-messages" id="aiMessages1"></div>
             </div>
 
             <div class="solution-box" id="solution1">
-                <h4>Step 1 Solution</h4>
+                <h4>פתרון שלב 1</h4>
                 <div class="solution-step">
-                    <div class="label">The characteristic polynomial:</div>
+                    <div class="label">הפולינום האופייני:</div>
                     <div class="math">|λI − A| = (λ−3)(λ+1) − (−2)(4) = λ² − 2λ + 5</div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">Solving the quadratic equation:</div>
+                    <div class="label">פתרון המשוואה הריבועית:</div>
                     <div class="math">
                         λ = (2 ± √(4−20))/2 = (2 ± √(−16))/2 = (2 ± 4i)/2
                     </div>
                 </div>
                 <div class="result-highlight">
-                    <h4>The Eigenvalues</h4>
+                    <h4>הערכים העצמיים</h4>
                     <div class="math">
                         <span class="hl-purple">λ = 1 ± 2i</span>
                     </div>
@@ -786,44 +786,44 @@
 
             <!-- Inline navigation -->
             <div class="inline-nav" style="text-align: center; margin-top: 20px;">
-                <button class="nav-btn" onclick="showStep(2)">Next Step →</button>
+                <button class="nav-btn" onclick="showStep(2)">← שלב הבא</button>
             </div>
         </div>
 
         <!-- Step 2: Find Eigenvector -->
         <div class="phase step2" id="phase2">
-            <div class="phase-title">Step 2: Finding an Eigenvector</div>
+            <div class="phase-title">שלב 2: מציאת וקטור עצמי</div>
 
             <div class="phase-description">
-                We find an eigenvector v for λ = 1 + 2i
+                נמצא וקטור עצמי v עבור λ = 1 + 2i
             </div>
 
             <div class="guiding-question">
-                <h3>Guiding Question</h3>
-                <p>Solve the system (λI − A)v = 0:</p>
+                <h3>שאלה מנחה</h3>
+                <p>פתרו את המערכת (λI − A)v = 0:</p>
                 <div class="math">
                     <span class="eq-highlight">(−2+2i)v₁ + 2v₂ = 0</span>
                 </div>
-                <p style="margin-top: 10px; font-size: 1rem;">Hint: Choose v₁ = 1 and find v₂</p>
+                <p style="margin-top: 10px; font-size: 1rem;">רמז: בחרו v₁ = 1 ומצאו את v₂</p>
             </div>
 
             <div class="input-section">
-                <label>What is the eigenvector v for λ = 1+2i?</label>
+                <label>מהו הוקטור העצמי v עבור λ = 1+2i?</label>
                 <div class="input-row">
                     <span>v = [1, </span>
-                    <input type="text" id="v2-real" placeholder="real part">
+                    <input type="text" id="v2-real" placeholder="חלק ממשי">
                     <span>+</span>
-                    <input type="text" id="v2-imag" placeholder="imag part">
+                    <input type="text" id="v2-imag" placeholder="חלק מדומה">
                     <span>i]<sup>T</sup></span>
                 </div>
-                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">Enter the second component: e.g. 1 and -1 for 1−i</p>
+                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">הזינו את הרכיב השני: למשל 1 ו־ -1 עבור 1−i</p>
             </div>
 
             <div class="feedback" id="feedback2"></div>
 
             <div class="controls">
-                <button class="control-btn primary" id="check2">Check Answer</button>
-                <button class="control-btn show-solution" id="show2">Show Solution</button>
+                <button class="control-btn primary" id="check2">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show2">הציגו פתרון</button>
                 <button class="df-btn" id="df2">
                     <span class="df-icon">🧐</span>
                     <span>Digital Friend</span>
@@ -835,35 +835,35 @@
                 <div class="ai-chat-header">
                     <span class="ai-chat-title">
                         <span>🧐</span>
-                        <span>Digital Friend - Step 2</span>
+                        <span>Digital Friend - שלב 2</span>
                     </span>
-                    <button class="ai-close-btn" onclick="closeAIChat(2)">Close ×</button>
+                    <button class="ai-close-btn" onclick="closeAIChat(2)">סגירה ×</button>
                 </div>
                 <div class="ai-messages" id="aiMessages2"></div>
             </div>
 
             <div class="solution-box" id="solution2">
-                <h4>Step 2 Solution</h4>
+                <h4>פתרון שלב 2</h4>
                 <div class="solution-step">
-                    <div class="label">The matrix (λI − A) for λ = 1+2i:</div>
+                    <div class="label">המטריצה (λI − A) עבור λ = 1+2i:</div>
                     <div class="math">
                         [(−2+2i), 2; −4, (2+2i)]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">From the first equation:</div>
+                    <div class="label">מהמשוואה הראשונה:</div>
                     <div class="math">
                         (−2+2i)v₁ + 2v₂ = 0 → v₂ = (1−i)v₁
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">Choosing v₁ = 1:</div>
+                    <div class="label">בחירת v₁ = 1:</div>
                     <div class="math">
                         v₂ = 1 − i
                     </div>
                 </div>
                 <div class="result-highlight">
-                    <h4>The Eigenvector</h4>
+                    <h4>הוקטור העצמי</h4>
                     <div class="math">
                         <span class="hl-orange">v = [1, 1−i]<sup>T</sup></span>
                     </div>
@@ -872,30 +872,30 @@
 
             <!-- Inline navigation -->
             <div class="inline-nav" style="text-align: center; margin-top: 20px;">
-                <button class="nav-btn" onclick="showStep(1)" style="margin-left: 10px;">← Previous Step</button>
-                <button class="nav-btn" onclick="showStep(3)">Next Step →</button>
+                <button class="nav-btn" onclick="showStep(1)" style="margin-left: 10px;">שלב קודם →</button>
+                <button class="nav-btn" onclick="showStep(3)">← שלב הבא</button>
             </div>
         </div>
 
         <!-- Step 3: General Solution -->
         <div class="phase step3" id="phase3">
-            <div class="phase-title">Step 3: The General Solution</div>
+            <div class="phase-title">שלב 3: הפתרון הכללי</div>
 
             <div class="phase-description">
-                We decompose the complex solution into real and imaginary parts
+                נפרק את הפתרון המרוכב לחלקים ממשי ומדומה
             </div>
 
             <div class="guiding-question">
-                <h3>Guiding Question</h3>
-                <p>The general solution is:</p>
+                <h3>שאלה מנחה</h3>
+                <p>הפתרון הכללי הוא:</p>
                 <div class="math">
                     <span class="eq-highlight">x(t) = C₁e<sup>t</sup>[cos2t; cos2t+sin2t] + C₂e<sup>t</sup>[sin2t; sin2t−cos2t]</span>
                 </div>
-                <p style="margin-top: 10px; font-size: 1rem;">Remember: e<sup>αt</sup>(cosβt + i·sinβt)</p>
+                <p style="margin-top: 10px; font-size: 1rem;">זכרו: e<sup>αt</sup>(cosβt + i·sinβt)</p>
             </div>
 
             <div class="input-section">
-                <label>What is the coefficient of sin2t in the y(t) component of the second solution?</label>
+                <label>מה המקדם של sin2t ברכיב y(t) בפתרון השני?</label>
                 <div class="input-row">
                     <span>y₂(t) = e<sup>t</sup>(</span>
                     <input type="text" id="y2-sin-coef" placeholder="?">
@@ -903,14 +903,14 @@
                     <input type="text" id="y2-cos-coef" placeholder="?">
                     <span>·cos2t)</span>
                 </div>
-                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">Enter numbers: 1 or -1</p>
+                <p style="font-size: 1rem; opacity: 0.7; margin-top: 5px;">הזינו מספרים: 1 או -1</p>
             </div>
 
             <div class="feedback" id="feedback3"></div>
 
             <div class="controls">
-                <button class="control-btn primary" id="check3">Check Answer</button>
-                <button class="control-btn show-solution" id="show3">Show Solution</button>
+                <button class="control-btn primary" id="check3">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show3">הציגו פתרון</button>
                 <button class="df-btn" id="df3">
                     <span class="df-icon">🧐</span>
                     <span>Digital Friend</span>
@@ -922,41 +922,41 @@
                 <div class="ai-chat-header">
                     <span class="ai-chat-title">
                         <span>🧐</span>
-                        <span>Digital Friend - Step 3</span>
+                        <span>Digital Friend - שלב 3</span>
                     </span>
-                    <button class="ai-close-btn" onclick="closeAIChat(3)">Close ×</button>
+                    <button class="ai-close-btn" onclick="closeAIChat(3)">סגירה ×</button>
                 </div>
                 <div class="ai-messages" id="aiMessages3"></div>
             </div>
 
             <div class="solution-box" id="solution3">
-                <h4>Step 3 Solution</h4>
+                <h4>פתרון שלב 3</h4>
                 <div class="solution-step">
-                    <div class="label">The complex solution:</div>
+                    <div class="label">הפתרון המרוכב:</div>
                     <div class="math">
                         e<sup>(1+2i)t</sup>v = e<sup>t</sup>e<sup>2it</sup>[1; 1−i]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">Decomposition using Euler's formula:</div>
+                    <div class="label">פירוק באמצעות אוילר:</div>
                     <div class="math">
                         = e<sup>t</sup>(cos2t + i·sin2t)[1; 1−i]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">The real part (first solution):</div>
+                    <div class="label">החלק הממשי (פתרון ראשון):</div>
                     <div class="math">
                         x₁(t) = e<sup>t</sup>[cos2t; cos2t + sin2t]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">The imaginary part (second solution):</div>
+                    <div class="label">החלק המדומה (פתרון שני):</div>
                     <div class="math">
                         x₂(t) = e<sup>t</sup>[sin2t; sin2t − cos2t]
                     </div>
                 </div>
                 <div class="result-highlight">
-                    <h4>The General Solution</h4>
+                    <h4>הפתרון הכללי</h4>
                     <div class="math">
                         <span class="hl-green">x(t) = C₁e<sup>t</sup>[cos2t; cos2t+sin2t] + C₂e<sup>t</sup>[sin2t; sin2t−cos2t]</span>
                     </div>
@@ -965,30 +965,30 @@
 
             <!-- Inline navigation -->
             <div class="inline-nav" style="text-align: center; margin-top: 20px;">
-                <button class="nav-btn" onclick="showStep(2)" style="margin-left: 10px;">← Previous Step</button>
-                <button class="nav-btn" onclick="showStep(4)">Next Step →</button>
+                <button class="nav-btn" onclick="showStep(2)" style="margin-left: 10px;">שלב קודם →</button>
+                <button class="nav-btn" onclick="showStep(4)">← שלב הבא</button>
             </div>
         </div>
 
         <!-- Step 4: Initial Conditions -->
         <div class="phase step4" id="phase4">
-            <div class="phase-title">Step 4: Initial Conditions</div>
+            <div class="phase-title">שלב 4: תנאי התחלה</div>
 
             <div class="phase-description">
-                We substitute the initial conditions x(0) = [1, 0]<sup>T</sup> to find C₁ and C₂
+                נציב את תנאי ההתחלה x(0) = [1, 0]<sup>T</sup> כדי למצוא C₁ ו-C₂
             </div>
 
             <div class="guiding-question">
-                <h3>Guiding Question</h3>
-                <p>Substitute t = 0 in the general solution:</p>
+                <h3>שאלה מנחה</h3>
+                <p>הציבו t = 0 בפתרון הכללי:</p>
                 <div class="math">
                     <span class="eq-highlight">[1; 0] = C₁[1; 1] + C₂[0; −1]</span>
                 </div>
-                <p style="margin-top: 10px; font-size: 1rem;">Hint: Solve a system of 2 equations</p>
+                <p style="margin-top: 10px; font-size: 1rem;">רמז: פתרו מערכת של 2 משוואות</p>
             </div>
 
             <div class="input-section">
-                <label>What are the values of the constants?</label>
+                <label>מהם ערכי הקבועים?</label>
                 <div class="input-row">
                     <span>C₁ =</span>
                     <input type="text" id="c1-val" placeholder="?">
@@ -1000,8 +1000,8 @@
             <div class="feedback" id="feedback4"></div>
 
             <div class="controls">
-                <button class="control-btn primary" id="check4">Check Answer</button>
-                <button class="control-btn show-solution" id="show4">Show Solution</button>
+                <button class="control-btn primary" id="check4">בדקו תשובה</button>
+                <button class="control-btn show-solution" id="show4">הציגו פתרון</button>
                 <button class="df-btn" id="df4">
                     <span class="df-icon">🧐</span>
                     <span>Digital Friend</span>
@@ -1013,35 +1013,35 @@
                 <div class="ai-chat-header">
                     <span class="ai-chat-title">
                         <span>🧐</span>
-                        <span>Digital Friend - Step 4</span>
+                        <span>Digital Friend - שלב 4</span>
                     </span>
-                    <button class="ai-close-btn" onclick="closeAIChat(4)">Close ×</button>
+                    <button class="ai-close-btn" onclick="closeAIChat(4)">סגירה ×</button>
                 </div>
                 <div class="ai-messages" id="aiMessages4"></div>
             </div>
 
             <div class="solution-box" id="solution4">
-                <h4>Step 4 Solution</h4>
+                <h4>פתרון שלב 4</h4>
                 <div class="solution-step">
-                    <div class="label">Substituting t = 0:</div>
+                    <div class="label">הצבת t = 0:</div>
                     <div class="math">
                         [1; 0] = C₁[cos0; cos0+sin0] + C₂[sin0; sin0−cos0]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">Simplification:</div>
+                    <div class="label">פישוט:</div>
                     <div class="math">
                         [1; 0] = C₁[1; 1] + C₂[0; −1] = [C₁; C₁ − C₂]
                     </div>
                 </div>
                 <div class="solution-step">
-                    <div class="label">From the first equation: C₁ = 1</div>
+                    <div class="label">מהמשוואה הראשונה: C₁ = 1</div>
                     <div class="math">
-                        From the second equation: C₁ − C₂ = 0 → C₂ = 1
+                        מהמשוואה השנייה: C₁ − C₂ = 0 → C₂ = 1
                     </div>
                 </div>
                 <div class="result-highlight">
-                    <h4>The Constants</h4>
+                    <h4>הקבועים</h4>
                     <div class="math">
                         <span class="hl-blue">C₁ = 1, C₂ = 1</span>
                     </div>
@@ -1050,7 +1050,7 @@
 
             <!-- Final Answer -->
             <div class="solution-box" id="final-answer" style="display: none;">
-                <h4>Initial Value Problem Solution</h4>
+                <h4>פתרון בעיית ההתחלה</h4>
                 <div class="result-highlight" style="background: rgba(17, 168, 160, 0.15); border-color: var(--teal);">
                     <div class="math" style="font-size: 1.1rem; line-height: 2;">
                         x(t) = e<sup>t</sup>(cos2t + sin2t)<br>
@@ -1061,7 +1061,7 @@
 
             <!-- Inline navigation -->
             <div class="inline-nav" style="text-align: center; margin-top: 20px;">
-                <button class="nav-btn" onclick="showStep(3)">← Previous Step</button>
+                <button class="nav-btn" onclick="showStep(3)">שלב קודם →</button>
             </div>
         </div>
     </div>
@@ -1070,24 +1070,24 @@
     <div class="popup-overlay" id="popup1Overlay">
         <div class="popup">
             <button class="popup-close" id="popup1Close">&times;</button>
-            <h2>Step 1 Solution - Finding Eigenvalues</h2>
+            <h2>פתרון שלב 1 - מציאת ערכים עצמיים</h2>
 
             <div class="solution-step">
-                <div class="label">The characteristic polynomial:</div>
+                <div class="label">הפולינום האופייני:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     |λI − A| = (λ−3)(λ+1) − (−2)(4) = λ² − 2λ + 5
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Solving the quadratic equation:</div>
+                <div class="label">פתרון המשוואה הריבועית:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     λ = (2 ± √(4−20))/2 = (2 ± √(−16))/2 = (2 ± 4i)/2
                 </div>
             </div>
 
             <div class="result-highlight">
-                <h4>The Eigenvalues</h4>
+                <h4>הערכים העצמיים</h4>
                 <div class="math" style="direction: ltr; font-family: 'Times New Roman', serif; font-size: 1.15rem;">
                     <span class="hl-purple">λ = 1 ± 2i</span>
                 </div>
@@ -1099,38 +1099,38 @@
     <div class="popup-overlay" id="popup2Overlay">
         <div class="popup" style="border-color: var(--orange);">
             <button class="popup-close" id="popup2Close">&times;</button>
-            <h2 style="color: var(--orange);">Step 2 Solution - Finding an Eigenvector</h2>
+            <h2 style="color: var(--orange);">פתרון שלב 2 - מציאת וקטור עצמי</h2>
 
             <div class="solution-step">
-                <div class="label">The matrix (λI − A) for λ = 1+2i:</div>
+                <div class="label">המטריצה (λI − A) עבור λ = 1+2i:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     λI − A = [(1+2i)−3, −(−2); −4, (1+2i)−(−1)] = [−2+2i, 2; −4, 2+2i]
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">The first equation (λI − A)v = 0:</div>
+                <div class="label">המשוואה הראשונה (λI − A)v = 0:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     (−2+2i)v₁ + 2v₂ = 0
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Solving for v₂:</div>
+                <div class="label">פתרון עבור v₂:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     v₂ = −(−2+2i)v₁/2 = (2−2i)v₁/2 = (1−i)v₁
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Choosing v₁ = 1:</div>
+                <div class="label">בחירת v₁ = 1:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     v₂ = 1 − i
                 </div>
             </div>
 
             <div class="result-highlight">
-                <h4>The Eigenvector</h4>
+                <h4>הוקטור העצמי</h4>
                 <div class="math" style="direction: ltr; font-family: 'Times New Roman', serif; font-size: 1.15rem;">
                     <span class="hl-orange">v = [1, 1−i]<sup>T</sup></span>
                 </div>
@@ -1142,65 +1142,65 @@
     <div class="popup-overlay" id="popup3Overlay">
         <div class="popup" style="border-color: var(--green); max-width: 750px;">
             <button class="popup-close" id="popup3Close">&times;</button>
-            <h2 style="color: var(--green);">Step 3 Solution - The General Solution (Full Detail)</h2>
+            <h2 style="color: var(--green);">פתרון שלב 3 - הפתרון הכללי (פירוט מלא)</h2>
 
             <div class="solution-step">
-                <div class="label">Step a: The complex solution</div>
+                <div class="label">שלב א': הפתרון המרוכב</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     x(t) = e<sup>λt</sup>v = e<sup>(1+2i)t</sup>[1; 1−i]
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Step b: Decomposing the exponential</div>
+                <div class="label">שלב ב': פירוק האקספוננט</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     e<sup>(1+2i)t</sup> = e<sup>t</sup> · e<sup>2it</sup>
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Step c: Euler's formula</div>
+                <div class="label">שלב ג': נוסחת אוילר</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem; background: rgba(34, 197, 94, 0.1); padding: 10px; border-radius: 8px;">
                     e<sup>2it</sup> = cos(2t) + i·sin(2t)
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Step d: Multiplying by the eigenvector</div>
+                <div class="label">שלב ד': הכפלת הוקטור</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1rem; line-height: 1.8;">
                     e<sup>t</sup>(cos2t + i·sin2t) · [1; 1−i]
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Step e: Computing the first component x(t):</div>
+                <div class="label">שלב ה': חישוב הרכיב הראשון x(t):</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1rem; line-height: 1.8;">
                     x(t) = e<sup>t</sup>(cos2t + i·sin2t) · 1 = e<sup>t</sup>(cos2t + i·sin2t)<br>
-                    <span style="color: var(--teal);">Real part:</span> e<sup>t</sup>cos2t &nbsp;&nbsp;|&nbsp;&nbsp; <span style="color: var(--purple);">Imaginary part:</span> e<sup>t</sup>sin2t
+                    <span style="color: var(--teal);">חלק ממשי:</span> e<sup>t</sup>cos2t &nbsp;&nbsp;|&nbsp;&nbsp; <span style="color: var(--purple);">חלק מדומה:</span> e<sup>t</sup>sin2t
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Step f: Computing the second component y(t):</div>
+                <div class="label">שלב ו': חישוב הרכיב השני y(t):</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 0.95rem; line-height: 1.8;">
                     y(t) = e<sup>t</sup>(cos2t + i·sin2t) · (1−i)<br><br>
                     = e<sup>t</sup>[(cos2t)(1) + (cos2t)(−i) + (i·sin2t)(1) + (i·sin2t)(−i)]<br><br>
                     = e<sup>t</sup>[cos2t − i·cos2t + i·sin2t + sin2t]<br><br>
                     = e<sup>t</sup>[(cos2t + sin2t) + i(sin2t − cos2t)]<br><br>
-                    <span style="color: var(--teal);">Real part:</span> e<sup>t</sup>(cos2t + sin2t) &nbsp;&nbsp;|&nbsp;&nbsp; <span style="color: var(--purple);">Imaginary part:</span> e<sup>t</sup>(sin2t − cos2t)
+                    <span style="color: var(--teal);">חלק ממשי:</span> e<sup>t</sup>(cos2t + sin2t) &nbsp;&nbsp;|&nbsp;&nbsp; <span style="color: var(--purple);">חלק מדומה:</span> e<sup>t</sup>(sin2t − cos2t)
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Step g: The two linearly independent solutions:</div>
+                <div class="label">שלב ז': שני הפתרונות הבלתי תלויים:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1rem; line-height: 2;">
-                    <span style="color: var(--teal);">Solution 1 (real part):</span> x₁(t) = e<sup>t</sup>[cos2t; cos2t + sin2t]<br>
-                    <span style="color: var(--purple);">Solution 2 (imaginary part):</span> x₂(t) = e<sup>t</sup>[sin2t; sin2t − cos2t]
+                    <span style="color: var(--teal);">פתרון 1 (חלק ממשי):</span> x₁(t) = e<sup>t</sup>[cos2t; cos2t + sin2t]<br>
+                    <span style="color: var(--purple);">פתרון 2 (חלק מדומה):</span> x₂(t) = e<sup>t</sup>[sin2t; sin2t − cos2t]
                 </div>
             </div>
 
             <div class="result-highlight">
-                <h4>The General Solution</h4>
+                <h4>הפתרון הכללי</h4>
                 <div class="math" style="direction: ltr; font-family: 'Times New Roman', serif; font-size: 1.1rem; line-height: 1.8;">
                     <span class="hl-green">x(t) = C₁e<sup>t</sup>[cos2t; cos2t+sin2t] + C₂e<sup>t</sup>[sin2t; sin2t−cos2t]</span>
                 </div>
@@ -1212,39 +1212,39 @@
     <div class="popup-overlay" id="popup4Overlay">
         <div class="popup" style="border-color: var(--blue);">
             <button class="popup-close" id="popup4Close">&times;</button>
-            <h2 style="color: var(--blue);">Step 4 Solution - Initial Conditions</h2>
+            <h2 style="color: var(--blue);">פתרון שלב 4 - תנאי התחלה</h2>
 
             <div class="solution-step">
-                <div class="label">Substituting t = 0 in the general solution:</div>
+                <div class="label">הצבת t = 0 בפתרון הכללי:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     x(0) = C₁e⁰[cos0; cos0+sin0] + C₂e⁰[sin0; sin0−cos0]
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Simplification (cos0=1, sin0=0):</div>
+                <div class="label">פישוט (cos0=1, sin0=0):</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     x(0) = C₁[1; 1] + C₂[0; −1] = [C₁; C₁ − C₂]
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">Comparing to the initial condition x(0) = [1, 0]<sup>T</sup>:</div>
+                <div class="label">השוואה לתנאי ההתחלה x(0) = [1, 0]<sup>T</sup>:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem; line-height: 1.8;">
-                    Equation 1: &nbsp; C₁ = 1<br>
-                    Equation 2: &nbsp; C₁ − C₂ = 0 &nbsp; → &nbsp; C₂ = C₁ = 1
+                    משוואה 1: &nbsp; C₁ = 1<br>
+                    משוואה 2: &nbsp; C₁ − C₂ = 0 &nbsp; → &nbsp; C₂ = C₁ = 1
                 </div>
             </div>
 
             <div class="result-highlight">
-                <h4>The Constants</h4>
+                <h4>הקבועים</h4>
                 <div class="math" style="direction: ltr; font-family: 'Times New Roman', serif; font-size: 1.15rem;">
                     <span class="hl-blue">C₁ = 1, &nbsp; C₂ = 1</span>
                 </div>
             </div>
 
             <div class="result-highlight" style="background: rgba(17, 168, 160, 0.15); border-color: var(--teal); margin-top: 15px;">
-                <h4 style="color: var(--teal);">The Final Solution</h4>
+                <h4 style="color: var(--teal);">הפתרון הסופי</h4>
                 <div class="math" style="direction: ltr; font-family: 'Times New Roman', serif; font-size: 1.1rem; line-height: 2;">
                     x(t) = e<sup>t</sup>(cos2t + sin2t)<br>
                     y(t) = 2e<sup>t</sup>sin2t
@@ -1269,19 +1269,19 @@
         const problemData = {
             1: {
                 correctAnswer: "λ = 1 ± 2i (α=1, β=2)",
-                fullSolution: "λ = 1 ± 2i\n\nSolution steps:\n1. The characteristic polynomial: |λI - A| = (λ-3)(λ+1) - (-2)(4) = λ² - 2λ + 5\n2. Quadratic formula: λ = (2 ± √(4-20))/2 = (2 ± √(-16))/2\n3. λ = (2 ± 4i)/2 = 1 ± 2i"
+                fullSolution: "λ = 1 ± 2i\n\nשלבי הפתרון:\n1. הפולינום האופייני: |λI - A| = (λ-3)(λ+1) - (-2)(4) = λ² - 2λ + 5\n2. נוסחה ריבועית: λ = (2 ± √(4-20))/2 = (2 ± √(-16))/2\n3. λ = (2 ± 4i)/2 = 1 ± 2i"
             },
             2: {
                 correctAnswer: "v = [1, 1-i]^T (v₂ has real part 1, imaginary part -1)",
-                fullSolution: "v = [1, 1-i]^T\n\nSolution steps:\n1. For λ = 1+2i, we solve (λI - A)v = 0\n2. The equation: (-2+2i)v₁ + 2v₂ = 0\n3. v₂ = (2-2i)v₁/2 = (1-i)v₁\n4. Choosing v₁ = 1: v = [1, 1-i]^T"
+                fullSolution: "v = [1, 1-i]^T\n\nשלבי הפתרון:\n1. עבור λ = 1+2i, נפתור (λI - A)v = 0\n2. המשוואה: (-2+2i)v₁ + 2v₂ = 0\n3. v₂ = (2-2i)v₁/2 = (1-i)v₁\n4. בחירת v₁ = 1: v = [1, 1-i]^T"
             },
             3: {
                 correctAnswer: "y₂(t) = e^t(sin2t - cos2t) (coefficients: 1 for sin2t, 1 for cos2t)",
-                fullSolution: "The general solution:\nx(t) = C₁e^t[cos2t; cos2t+sin2t] + C₂e^t[sin2t; sin2t-cos2t]\n\nExplanation:\n1. e^{(1+2i)t}v = e^t(cos2t + i·sin2t)[1; 1-i]\n2. The real part: e^t[cos2t; cos2t+sin2t]\n3. The imaginary part: e^t[sin2t; sin2t-cos2t]"
+                fullSolution: "הפתרון הכללי:\nx(t) = C₁e^t[cos2t; cos2t+sin2t] + C₂e^t[sin2t; sin2t-cos2t]\n\nהסבר:\n1. e^{(1+2i)t}v = e^t(cos2t + i·sin2t)[1; 1-i]\n2. החלק הממשי: e^t[cos2t; cos2t+sin2t]\n3. החלק המדומה: e^t[sin2t; sin2t-cos2t]"
             },
             4: {
                 correctAnswer: "C₁ = 1, C₂ = 1",
-                fullSolution: "C₁ = 1, C₂ = 1\n\nSolution steps:\n1. Substituting x(0) = [1, 0]^T\n2. [1; 0] = C₁[1; 1] + C₂[0; -1]\n3. From the first component: C₁ = 1\n4. From the second component: C₁ - C₂ = 0 → C₂ = 1\n\nThe Final Solution:\nx(t) = e^t(cos2t + sin2t)\ny(t) = 2e^t·sin2t"
+                fullSolution: "C₁ = 1, C₂ = 1\n\nשלבי הפתרון:\n1. הצבת x(0) = [1, 0]^T\n2. [1; 0] = C₁[1; 1] + C₂[0; -1]\n3. מהרכיב הראשון: C₁ = 1\n4. מהרכיב השני: C₁ - C₂ = 0 → C₂ = 1\n\nהפתרון הסופי:\nx(t) = e^t(cos2t + sin2t)\ny(t) = 2e^t·sin2t"
             }
         };
 
@@ -1376,7 +1376,7 @@
             messagesDiv.innerHTML += `
                 <div class="ai-message ai-loading">
                     <div class="spinner"></div>
-                    <span>Processing your answer...</span>
+                    <span>מעבד את התשובה...</span>
                 </div>
             `;
 
@@ -1401,7 +1401,7 @@
                 if (data.error) {
                     messagesDiv.innerHTML += `
                         <div class="ai-message" style="color: var(--red);">
-                            Error: ${data.error}
+                            שגיאה: ${data.error}
                         </div>
                     `;
                     return;
@@ -1422,7 +1422,7 @@
 
                 messagesDiv.innerHTML += `
                     <div class="ai-message" style="color: var(--red);">
-                        Unable to connect to the server. Make sure the local server is running.
+                        לא ניתן להתחבר לשרת. ודאו שהשרת המקומי פועל.
                     </div>
                 `;
                 console.error('API Error:', error);
@@ -1436,7 +1436,7 @@
             conversationHistory[step].forEach((turn, i) => {
                 html += `
                     <div class="ai-message user">
-                        <strong>Attempt #${i + 1}:</strong> ${turn.user}
+                        <strong>ניסיון #${i + 1}:</strong> ${turn.user}
                     </div>
                     <div class="ai-message assistant">
                         ${turn.ai}
@@ -1463,11 +1463,11 @@
             document.getElementById('lambda-beta').className = betaCorrect ? 'correct' : 'incorrect';
 
             if (alphaCorrect && betaCorrect) {
-                showFeedback(document.getElementById('feedback1'), 'Correct! The eigenvalues are right', true);
+                showFeedback(document.getElementById('feedback1'), '✓ מצוין! הערכים העצמיים נכונים', true);
                 stepCompleted[0] = true;
                 updateUI();
             } else {
-                showFeedback(document.getElementById('feedback1'), 'Incorrect. Check the characteristic polynomial again', false);
+                showFeedback(document.getElementById('feedback1'), '✗ בדקו שוב את הפולינום האופייני', false);
             }
         });
 
@@ -1512,11 +1512,11 @@
             document.getElementById('v2-imag').className = imagCorrect ? 'correct' : 'incorrect';
 
             if (realCorrect && imagCorrect) {
-                showFeedback(document.getElementById('feedback2'), 'Correct! The eigenvector is right', true);
+                showFeedback(document.getElementById('feedback2'), '✓ מצוין! הוקטור העצמי נכון', true);
                 stepCompleted[1] = true;
                 updateUI();
             } else {
-                showFeedback(document.getElementById('feedback2'), 'Incorrect. Check the equation (λI-A)v=0 again', false);
+                showFeedback(document.getElementById('feedback2'), '✗ בדקו שוב את המשוואה (λI-A)v=0', false);
             }
         });
 
@@ -1555,11 +1555,11 @@
             document.getElementById('y2-cos-coef').className = cosCorrect ? 'correct' : 'incorrect';
 
             if (sinCorrect && cosCorrect) {
-                showFeedback(document.getElementById('feedback3'), 'Correct! The general solution is right', true);
+                showFeedback(document.getElementById('feedback3'), '✓ מצוין! הפתרון הכללי נכון', true);
                 stepCompleted[2] = true;
                 updateUI();
             } else {
-                showFeedback(document.getElementById('feedback3'), 'Incorrect. Check the decomposition into real and imaginary parts again', false);
+                showFeedback(document.getElementById('feedback3'), '✗ בדקו שוב את הפירוק לחלק ממשי ומדומה', false);
             }
         });
 
@@ -1598,12 +1598,12 @@
             document.getElementById('c2-val').className = c2Correct ? 'correct' : 'incorrect';
 
             if (c1Correct && c2Correct) {
-                showFeedback(document.getElementById('feedback4'), 'Excellent! You have successfully solved the initial value problem!', true);
+                showFeedback(document.getElementById('feedback4'), '✓ מעולה! פתרתם את בעיית ההתחלה בהצלחה!', true);
                 stepCompleted[3] = true;
                 document.getElementById('final-answer').style.display = 'block';
                 updateUI();
             } else {
-                showFeedback(document.getElementById('feedback4'), 'Incorrect. Check the substitution of initial conditions again', false);
+                showFeedback(document.getElementById('feedback4'), '✗ בדקו שוב את הצבת תנאי ההתחלה', false);
             }
         });
 
@@ -1643,7 +1643,7 @@
     </script>
 
 <footer class="site-footer" dir="ltr">
-  &copy; Developed by Shir Sivroni | All rights reserved
+  &copy; The Open University of Israel | Developed by Shir Sivroni
 </footer>
 </body>
 </html>
