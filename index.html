@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  Corrected 3 August 2026 from Dafi's notes in "Presentation1 עם הערות דפי.pdf".
+  Previous version preserved as: index_OLD.html
+  Full path: D:\Dropbox\ODE\אתר_הקורס_שידרוג\כרך ג\GITHUB_PROJECTS\mmn-13-Q-2\index_OLD.html
+  Changes: single-vav vector noun -> double-vav x5; digit "2" spelled out as a Hebrew word x1; geresh removed after a single letter in step headings x7
+-->
+
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -808,7 +815,7 @@
             </div>
 
             <div class="input-section">
-                <label>מהו הוקטור העצמי v עבור λ = 1+2i?</label>
+                <label>מהו הווקטור העצמי v עבור λ = 1+2i?</label>
                 <div class="input-row">
                     <span>v = [1, </span>
                     <input type="text" id="v2-real" placeholder="חלק ממשי">
@@ -863,7 +870,7 @@
                     </div>
                 </div>
                 <div class="result-highlight">
-                    <h4>הוקטור העצמי</h4>
+                    <h4>הווקטור העצמי</h4>
                     <div class="math">
                         <span class="hl-orange">v = [1, 1−i]<sup>T</sup></span>
                     </div>
@@ -984,7 +991,7 @@
                 <div class="math">
                     <span class="eq-highlight">[1; 0] = C₁[1; 1] + C₂[0; −1]</span>
                 </div>
-                <p style="margin-top: 10px; font-size: 1rem;">רמז: פתרו מערכת של 2 משוואות</p>
+                <p style="margin-top: 10px; font-size: 1rem;">רמז: פתרו מערכת של שתי משוואות</p>
             </div>
 
             <div class="input-section">
@@ -1130,7 +1137,7 @@
             </div>
 
             <div class="result-highlight">
-                <h4>הוקטור העצמי</h4>
+                <h4>הווקטור העצמי</h4>
                 <div class="math" style="direction: ltr; font-family: 'Times New Roman', serif; font-size: 1.15rem;">
                     <span class="hl-orange">v = [1, 1−i]<sup>T</sup></span>
                 </div>
@@ -1145,35 +1152,35 @@
             <h2 style="color: var(--green);">פתרון שלב 3 - הפתרון הכללי (פירוט מלא)</h2>
 
             <div class="solution-step">
-                <div class="label">שלב א': הפתרון המרוכב</div>
+                <div class="label">שלב א: הפתרון המרוכב</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     x(t) = e<sup>λt</sup>v = e<sup>(1+2i)t</sup>[1; 1−i]
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">שלב ב': פירוק האקספוננט</div>
+                <div class="label">שלב ב: פירוק האקספוננט</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem;">
                     e<sup>(1+2i)t</sup> = e<sup>t</sup> · e<sup>2it</sup>
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">שלב ג': נוסחת אוילר</div>
+                <div class="label">שלב ג: נוסחת אוילר</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1.05rem; background: rgba(34, 197, 94, 0.1); padding: 10px; border-radius: 8px;">
                     e<sup>2it</sup> = cos(2t) + i·sin(2t)
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">שלב ד': הכפלת הוקטור</div>
+                <div class="label">שלב ד: הכפלת הווקטור</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1rem; line-height: 1.8;">
                     e<sup>t</sup>(cos2t + i·sin2t) · [1; 1−i]
                 </div>
             </div>
 
             <div class="solution-step">
-                <div class="label">שלב ה': חישוב הרכיב הראשון x(t):</div>
+                <div class="label">שלב ה: חישוב הרכיב הראשון x(t):</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1rem; line-height: 1.8;">
                     x(t) = e<sup>t</sup>(cos2t + i·sin2t) · 1 = e<sup>t</sup>(cos2t + i·sin2t)<br>
                     <span style="color: var(--teal);">חלק ממשי:</span> e<sup>t</sup>cos2t &nbsp;&nbsp;|&nbsp;&nbsp; <span style="color: var(--purple);">חלק מדומה:</span> e<sup>t</sup>sin2t
@@ -1181,7 +1188,7 @@
             </div>
 
             <div class="solution-step">
-                <div class="label">שלב ו': חישוב הרכיב השני y(t):</div>
+                <div class="label">שלב ו: חישוב הרכיב השני y(t):</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 0.95rem; line-height: 1.8;">
                     y(t) = e<sup>t</sup>(cos2t + i·sin2t) · (1−i)<br><br>
                     = e<sup>t</sup>[(cos2t)(1) + (cos2t)(−i) + (i·sin2t)(1) + (i·sin2t)(−i)]<br><br>
@@ -1192,7 +1199,7 @@
             </div>
 
             <div class="solution-step">
-                <div class="label">שלב ז': שני הפתרונות הבלתי תלויים:</div>
+                <div class="label">שלב ז: שני הפתרונות הבלתי תלויים:</div>
                 <div class="math" style="direction: ltr; text-align: center; font-family: 'Times New Roman', serif; font-size: 1rem; line-height: 2;">
                     <span style="color: var(--teal);">פתרון 1 (חלק ממשי):</span> x₁(t) = e<sup>t</sup>[cos2t; cos2t + sin2t]<br>
                     <span style="color: var(--purple);">פתרון 2 (חלק מדומה):</span> x₂(t) = e<sup>t</sup>[sin2t; sin2t − cos2t]
@@ -1512,7 +1519,7 @@
             document.getElementById('v2-imag').className = imagCorrect ? 'correct' : 'incorrect';
 
             if (realCorrect && imagCorrect) {
-                showFeedback(document.getElementById('feedback2'), '✓ מצוין! הוקטור העצמי נכון', true);
+                showFeedback(document.getElementById('feedback2'), '✓ מצוין! הווקטור העצמי נכון', true);
                 stepCompleted[1] = true;
                 updateUI();
             } else {

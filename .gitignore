@@ -36,3 +36,6 @@ Thumbs.db
 *.xls
 *.pptx
 *.ppt
+
+# local pre-edit backups - must never be published
+*_OLD.html
